@@ -46,3 +46,7 @@ void ShooterSubsystem::Periodic() {}
 void ShooterSubsystem::SetTurretAngle(units::angle::degree_t Angle) {
 
 };
+
+void ShooterSubsystem::SetShooterActive(bool Trigger) {
+
+};

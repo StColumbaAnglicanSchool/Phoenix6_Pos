@@ -18,6 +18,8 @@ class ShooterSubsystem : public frc2::SubsystemBase {
 
   void SetTurretAngle(units::angle::degree_t Angle);
 
+  void SetShooterActive(bool Trigger);
+
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
