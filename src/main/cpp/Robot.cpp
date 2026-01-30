@@ -24,9 +24,9 @@ Robot::Robot() {
   configs.Slot0.kS = 0.25;
   configs.Slot0.kV = 0.12;
   configs.Slot0.kA = 0.01;
-  configs.Slot0.kP = 80.0;
+  configs.Slot0.kP = 90.0;
   configs.Slot0.kI = 0;
-  configs.Slot0.kD = 0.1;
+  configs.Slot0.kD = 1.5;
 
   configs.Voltage.PeakForwardVoltage = 12_V;
   configs.Voltage.PeakReverseVoltage = -12_V;
