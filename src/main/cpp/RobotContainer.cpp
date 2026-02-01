@@ -48,6 +48,7 @@ RobotContainer::RobotContainer() {
   m_ShooterSS.SetDefaultCommand(frc2::cmd::Run(
     [this] {
         m_ShooterSS.SetShooterActive(m_DriverController.GetTrigger());
+        m_ShooterSS.SetTurretAngle(m_DriverController.GetZ() * 1_deg);
     },
     {&m_ShooterSS}));
 };

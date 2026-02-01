@@ -44,7 +44,7 @@ ShooterSubsystem::ShooterSubsystem() {
 void ShooterSubsystem::Periodic() {}
 
 void ShooterSubsystem::SetTurretAngle(units::angle::degree_t Angle) {
-
+  m_TurretMotor.SetControl(m_MotionMagicRequest.WithPosition(Angle).WithSlot(0));
 };
 
 void ShooterSubsystem::SetShooterActive(bool Trigger) {
