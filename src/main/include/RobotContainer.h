@@ -5,8 +5,8 @@
 #include <frc2/command/Commands.h>
 #include <frc/Joystick.h>
 
-#include <Constants.h>
-#include <subsystems/Shooter.h>
+#include "Constants.h"
+#include "subsystems/ShooterSubsystem.h"
 
 namespace ac = AutoConstants;
 

@@ -1,5 +1,6 @@
 #include <RobotContainer.h>
 #include <frc/shuffleboard/Shuffleboard.h>
+#include <frc2/command/button/JoystickButton.h>
 
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
@@ -12,7 +13,7 @@ RobotContainer::RobotContainer() {
 //   // Put the chooser on the dashboard
 //   frc::Shuffleboard::GetTab("Autonomous").Add(m_chooser);
   // Put subsystems to dashboard.
-  frc::Shuffleboard::GetTab("Shooter").Add(m_ShooterSS);
+  //frc::Shuffleboard::GetTab("Shooter").Add(&m_ShooterSS);
 
 
   // Log Shuffleboard events for command initialize, execute, finish, interrupt
@@ -43,12 +44,11 @@ RobotContainer::RobotContainer() {
 
   // Configure Button Bindings
   ConfigureButtonBindings();
+};
 
-  // Set default command for Shooter
-  m_ShooterSS.SetDefaultCommand(frc2::cmd::Run(
-    [this] {
-        m_ShooterSS.SetShooterActive(m_DriverController.GetTrigger());
-        m_ShooterSS.SetTurretAngle(m_DriverController.GetZ() * 1_deg);
-    },
-    {&m_ShooterSS}));
+void RobotContainer::ConfigureButtonBindings() {
+  // // Grab the hatch when the 'Circle' button is pressed.
+  frc2::JoystickButton(&m_DriverController,7).OnTrue(m_ShooterSS.TargetTo90DegreesCMD());
+  frc2::JoystickButton(&m_DriverController,9).OnTrue(m_ShooterSS.TargetToZeroCMD());
+  frc2::JoystickButton(&m_DriverController,11).OnTrue(m_ShooterSS.TargetToNeg90DegreesCMD());
 };

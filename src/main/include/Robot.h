@@ -12,6 +12,8 @@
 // #include <frc/XboxController.h>
 #include <frc/Joystick.h>
 
+#include "LimelightHelpers.h"
+
 #define TURRET
 
 class Robot : public frc::TimedRobot {
