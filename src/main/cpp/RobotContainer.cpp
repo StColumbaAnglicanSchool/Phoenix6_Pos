@@ -50,4 +50,5 @@ void RobotContainer::ConfigureButtonBindings() {
   frc2::JoystickButton(&m_DriverController,7).OnTrue(m_ShooterSS.TargetTo90DegreesCMD());
   frc2::JoystickButton(&m_DriverController,9).OnTrue(m_ShooterSS.TargetToZeroCMD());
   frc2::JoystickButton(&m_DriverController,11).OnTrue(m_ShooterSS.TargetToNeg90DegreesCMD());
+  frc2::JoystickButton(&m_DriverController,1).WhileTrue(m_ShooterSS.SetShooterSpeedCMD());
 };

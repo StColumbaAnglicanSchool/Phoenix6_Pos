@@ -39,6 +39,18 @@ Turret::Turret(int shooterMotorCANBusID, int feederMotorCANBusID,
   turretConfig.MotorOutput.Inverted =
       signals::InvertedValue::Clockwise_Positive;
 
+
+  shooterConfig.Slot0.kS = 0.1;
+  shooterConfig.Slot0.kV = 0.12;
+  shooterConfig.Slot0.kA = 0.01;
+  shooterConfig.Slot0.kP = 0;
+  shooterConfig.Slot0.kI = 0;
+  shooterConfig.Slot0.kD = 0;
+
+  shooterConfig.Voltage.PeakForwardVoltage = 12_V;
+  shooterConfig.Voltage.PeakReverseVoltage = -12_V;
+
+  
   ctre::phoenix::StatusCode status =
       ctre::phoenix::StatusCode::StatusCodeNotInitialized;
 
@@ -52,19 +64,15 @@ Turret::Turret(int shooterMotorCANBusID, int feederMotorCANBusID,
               << status.GetName() << std::endl;
   }
 
-  // for (int i = 0; i < 5; ++i) {
-  //   status = m_shooterMotor.GetConfigurator().Apply(shooterConfig);
-  //   if (status.IsOK())
-  //     break;
-  // }
-  // // configs::TalonFXConfiguration LShooterInverted;
-  // // LShooterInverted.motorOutput.Inverted =
-  // configs.motorOutput.Inverted.Clockwise_Positive;
-  // // status = m_LShooterMotor.GetConfigurator().Apply(LShooterInverted);
-  // if (!status.IsOK()) {
-  //   std::cout << "Could not apply configs, error code: " << status.GetName()
-  //   << std::endl;
-  // }
+  for (int i = 0; i < 5; ++i) {
+    status = m_shooterMotor.GetConfigurator().Apply(shooterConfig);
+    if (status.IsOK())
+      break;
+  }
+  if (!status.IsOK()) {
+    std::cout << "Could not apply configs, error code: " << status.GetName()
+    << std::endl;
+  }
 };
 
 void Turret::InitializeTurretAngle() {}
@@ -79,7 +87,13 @@ units::angle::degree_t Turret::GetTurretAngle() {
 };
 
 void Turret::SetShooterSpeed(units::turns_per_second_t speed) {
-
+  fmt::println("[METHOD] Setting Shooter speed to {}", speed);
+  m_shooterMotor.SetControl(m_voltageVelocity.WithVelocity(speed).WithSlot(0));
+  if (speed != 0_tps) {
+    m_feederMotor.SetControl(m_voltageOut.WithOutput(4.0_V));
+  } else {
+    m_feederMotor.SetControl(m_voltageOut.WithOutput(0.0_V));
+  }
 };
 
 bool Turret::IsShooterAtSpeed() {

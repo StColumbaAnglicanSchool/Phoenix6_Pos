@@ -47,6 +47,7 @@ class Turret {
   units::degree_t m_targetTurretAngle{0_deg};  
 
   controls::VelocityVoltage m_voltageVelocity{0_tps};
+  controls::VoltageOut m_voltageOut{0.0_V};
   controls::PositionVoltage m_positionControl{0_tr};
   controls::MotionMagicVoltage m_motionMagicControl{0_tr};
 

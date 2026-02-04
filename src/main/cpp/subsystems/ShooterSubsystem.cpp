@@ -41,7 +41,16 @@ frc2::CommandPtr ShooterSubsystem::TargetTo90DegreesCMD() {
 
 frc2::CommandPtr ShooterSubsystem::TargetToNeg90DegreesCMD() {
     return RunOnce([this] {
-         fmt::println("[COMMAND] Move to -90 degrees");
+        fmt::println("[COMMAND] Move to -90 degrees");
         m_LeftShooter.SetTurretAngle(-90_deg);
     });
 }; 
+
+frc2::CommandPtr ShooterSubsystem::SetShooterSpeedCMD() {
+    return StartEnd([this] {
+        fmt::println("[COMMAND] Setting Shooter Speed to 60 tps");
+        m_LeftShooter.SetShooterSpeed(60_tps);
+    }, [this] {
+        m_LeftShooter.SetShooterSpeed(0_tps);
+    });
+}

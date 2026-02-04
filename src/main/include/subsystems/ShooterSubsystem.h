@@ -30,6 +30,8 @@ class ShooterSubsystem : public frc2::SubsystemBase {
 
   frc2::CommandPtr TargetToNeg90DegreesCMD(); 
 
+  frc2::CommandPtr SetShooterSpeedCMD();
+
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
