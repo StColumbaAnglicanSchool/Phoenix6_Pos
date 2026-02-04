@@ -18,7 +18,7 @@ class RobotContainer {
   frc2::Command* GetAutonomousCommand();
 
  private:
-  frc::Joystick m_DriverController{0};
+  frc::Joystick m_DriverController{1};
   ShooterSubsystem m_ShooterSS;
 
   void ConfigureButtonBindings();

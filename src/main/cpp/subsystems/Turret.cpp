@@ -70,6 +70,7 @@ Turret::Turret(int shooterMotorCANBusID, int feederMotorCANBusID,
 void Turret::InitializeTurretAngle() {}
 
 void Turret::SetTurretAngle(units::angle::degree_t Angle) {
+  fmt::println("[METHOD] Moving to {} Degrees...", Angle);
   m_turretMotor.SetControl(m_motionMagicControl.WithPosition(Angle).WithSlot(0));
 };
 

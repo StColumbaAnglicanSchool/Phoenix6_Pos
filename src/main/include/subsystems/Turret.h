@@ -6,7 +6,7 @@
 
 #include <numbers>
 
-#include <frc2/command/SubsystemBase.h>
+//#include <frc2/command/SubsystemBase.h>
 #include <ctre/phoenix6/TalonFX.hpp>
 #include <ctre/phoenix6/controls/MotionMagicVoltage.hpp>
 #include <ctre/phoenix6/controls/VelocityVoltage.hpp>
@@ -23,8 +23,6 @@ class Turret {
   Turret(int shooterMotorCANBusID, int feederMotorCANBusID,
                    int turretMotorCANBusID, int turretCANCoderID,
                    std::string turretName);
-
-  std::string m_name;
 
   void InitializeTurretAngle();
 

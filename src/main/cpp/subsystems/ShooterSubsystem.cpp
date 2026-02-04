@@ -4,6 +4,7 @@
 
 #include "subsystems/ShooterSubsystem.h"
 
+
 ShooterSubsystem::ShooterSubsystem() = default;
 
 // This method will be called once per scheduler run
@@ -26,18 +27,21 @@ frc2::CommandPtr ShooterSubsystem::TargettingOnCmd() {
 
 frc2::CommandPtr ShooterSubsystem::TargetToZeroCMD() {
     return RunOnce([this] {
+        fmt::println("[COMMAND] Move to 0 degrees");
         m_LeftShooter.SetTurretAngle(0_deg);
     });
 };
 
 frc2::CommandPtr ShooterSubsystem::TargetTo90DegreesCMD() {
     return RunOnce([this] {
+        fmt::println("[COMMAND] Move to 90 degrees");
         m_LeftShooter.SetTurretAngle(90_deg);
     });
 };
 
 frc2::CommandPtr ShooterSubsystem::TargetToNeg90DegreesCMD() {
     return RunOnce([this] {
+         fmt::println("[COMMAND] Move to -90 degrees");
         m_LeftShooter.SetTurretAngle(-90_deg);
     });
 }; 
