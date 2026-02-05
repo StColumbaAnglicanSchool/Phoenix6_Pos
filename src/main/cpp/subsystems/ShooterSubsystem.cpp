@@ -49,7 +49,7 @@ frc2::CommandPtr ShooterSubsystem::TargetToNeg90DegreesCMD() {
 frc2::CommandPtr ShooterSubsystem::SetShooterSpeedCMD() {
     return StartEnd([this] {
         fmt::println("[COMMAND] Setting Shooter Speed to 60 tps");
-        m_LeftShooter.SetShooterSpeed(60_tps);
+        m_LeftShooter.SetShooterSpeed(65_tps);
     }, [this] {
         m_LeftShooter.SetShooterSpeed(0_tps);
     });
