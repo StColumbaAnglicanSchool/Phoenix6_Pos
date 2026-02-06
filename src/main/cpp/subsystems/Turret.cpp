@@ -69,10 +69,34 @@ Turret::Turret(int shooterMotorCANBusID, int feederMotorCANBusID,
 
   shooterConfig.Voltage.PeakForwardVoltage = 12_V;
   shooterConfig.Voltage.PeakReverseVoltage = -12_V;
+  
+
+  feederConfig.MotorOutput.Inverted =
+      signals::InvertedValue::Clockwise_Positive;
+
+  feederConfig.Slot0.kS = 0.1;
+  feederConfig.Slot0.kV = 0.12;
+  feederConfig.Slot0.kA = 0.01;
+  feederConfig.Slot0.kP = 0;
+  feederConfig.Slot0.kI = 0;
+  feederConfig.Slot0.kD = 0;
+
+  feederConfig.Voltage.PeakForwardVoltage = 12_V;
+  feederConfig.Voltage.PeakReverseVoltage = -12_V;
 
   // Try to apply the Shooter motor config object up to 5 times.
   for (int i = 0; i < 5; ++i) {
     status = m_shooterMotor.GetConfigurator().Apply(shooterConfig);
+    if (status.IsOK())
+      break;
+  }
+  if (!status.IsOK()) {
+    std::cout << "Could not apply configs, error code: " << status.GetName()
+              << std::endl;
+  }
+  // Try to apply the Shooter motor config object up to 5 times.
+  for (int i = 0; i < 5; ++i) {
+    status = m_feederMotor.GetConfigurator().Apply(feederConfig);
     if (status.IsOK())
       break;
   }
@@ -102,16 +126,38 @@ units::angle::degree_t Turret::GetTurretAngle() {
 
 void Turret::SetShooterSpeed(units::turns_per_second_t speed) {
   fmt::println("[METHOD] Setting Shooter speed to {}", speed);
+  m_targetVelocityShooter = speed;
   m_shooterMotor.SetControl(m_voltageVelocity.WithVelocity(speed).WithSlot(0));
-  if (speed != 0_tps) {
-    m_feederMotor.SetControl(m_voltageOut.WithOutput(4.0_V));
-  } else {
-    m_feederMotor.SetControl(m_voltageOut.WithOutput(0.0_V));
-  }
+
+  // if (speed != 0_tps) {
+  //   m_feederMotor.SetControl(m_voltageOut.WithOutput(4.0_V));
+  // } else {
+  //   m_feederMotor.SetControl(m_voltageOut.WithOutput(0.0_V));
+  // }
 };
 
 bool Turret::IsShooterAtSpeed() {
   // ------------------TODO----------------------
-  // Remove return false add code here to check if the turret has reached the set speed
-  return false;
+  // Remove return false add code here to check if the turret has reached the set speed  
+  fmt::println("Shooter Speed: {}", m_shooterMotor.GetVelocity().GetValue()());
+  return (fabs(m_shooterMotor.GetVelocity().GetValue().value()-m_targetVelocityShooter.value())<1.0);
+};
+
+void Turret::SetFeederSpeed(units::turns_per_second_t speed) {
+  fmt::println("[METHOD] Setting Shooter speed to {}", speed);
+  m_targetVelocityFeeder = speed;
+  m_feederMotor.SetControl(m_voltageVelocity.WithVelocity(speed).WithSlot(0));
+
+  // if (speed != 0_tps) {
+  //   m_feederMotor.SetControl(m_voltageOut.WithOutput(4.0_V));
+  // } else {
+  //   m_feederMotor.SetControl(m_voltageOut.WithOutput(0.0_V));
+  // }
+};
+
+bool Turret::IsFeederAtSpeed() {
+  // ------------------TODO----------------------
+  // Remove return false add code here to check if the turret has reached the set speed  
+  fmt::println("Feeder Speed: {}", m_feederMotor.GetVelocity().GetValue()());
+  return (fabs(m_feederMotor.GetVelocity().GetValue().value()-m_targetVelocityFeeder.value())<1.0);
 };

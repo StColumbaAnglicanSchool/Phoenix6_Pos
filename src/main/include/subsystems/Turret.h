@@ -43,17 +43,31 @@ class Turret {
 
   /**
    * Set the speed of the Shooter
-   * 
+   *
    * @param speed in turns_per_second
    */
   void SetShooterSpeed(units::turns_per_second_t speed);
 
   /**
    * Checks if the shooter has reached the set speed
-   * 
+   *
    * @return returns True or False
    */
   bool IsShooterAtSpeed();
+
+  /**
+   * Set the speed of the Feeder
+   *
+   * @param speed in turns_per_second
+   */
+  void SetFeederSpeed(units::turns_per_second_t speed);
+
+  /**
+   * Checks if the shooter has reached the set speed
+   *
+   * @return returns True or False
+   */
+  bool IsFeederAtSpeed();
 
  private:
   // Components (e.g. motor controllers and sensors) should generally be
@@ -65,7 +79,8 @@ class Turret {
   std::string m_turretName;
 
   // Members variables to hold the most recent setpoints
-  units::turns_per_second_t m_targetVelocity{0_tps};
+  units::turns_per_second_t m_targetVelocityShooter{0_tps};
+  units::turns_per_second_t m_targetVelocityFeeder{0_tps};
   units::degree_t m_targetTurretAngle{0_deg};
 
   // Create control objects to use the variuos modes of control
