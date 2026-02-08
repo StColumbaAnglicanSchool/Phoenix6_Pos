@@ -81,9 +81,9 @@ frc2::CommandPtr ShooterSubsystem::TargetToNeg90DegreesCMD() {
 /*
 Functional Command Format:
 [] {Init}
-[] {}
-[] {}
-[] {End Detection (not real name but for understanding)}
+[] {Periodic}
+[] {End}
+[] {Is Finished}
 */
 
 frc2::CommandPtr ShooterSubsystem::CheckShooterSpeedCMD() {
